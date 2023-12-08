@@ -6,4 +6,6 @@ use Illuminate\Support\Facades\Route;
 use Psr\Http\Client\ClientInterface;
 
 Route::post('clients', [ClientController::class, 'store']);
+Route::get('clients', [ClientController::class, 'index']);
+Route::put('clients/{id}', [ClientController::class, 'update']);
 

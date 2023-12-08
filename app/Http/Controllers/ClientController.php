@@ -33,5 +33,50 @@ class ClientController extends Controller
         }
 
     }
+        public function index(Request $request){
 
+
+                $params = $request->query();
+
+
+                $clients = Client::query();
+
+                if($request->has('name') && !empty($params['name'])) {
+                    $clients->where('name', 'ilike', "%".$params['name']."%");
+                }
+
+                if($request->has('cpf') && !empty($params['cpf'])) {
+                    $clients->where('cpf', $params['cpf']);
+                }
+
+             if($request->has('date_birth') && !empty($params['date_birth'])) {
+                $clients->where('date_birth', $params['date_birth']);
+            }
+
+            return $clients->get();
+        }
+
+        public function update($id, Request $request){
+          try{  $data = $request->only('name', 'email', 'date_birth', 'address');
+            $request->validate([
+                'name' => 'string',
+                'email' => 'string|unique:clients,email',
+                'date_birth' =>'date-format:Y-m-d',
+                'address'=> 'string'
+            ]);
+
+
+
+            $client = Client::find($id);
+            if(!$client) return $this->error('Cliente não encontrado', Response::HTTP_NOT_FOUND);
+            $client->update($data);
+            return $client;
+        }
+
+        catch(\Exception $exception){
+            return $this->error($exception->getMessage(), Response::HTTP_BAD_REQUEST);
+        }
+
+
+}
 }
