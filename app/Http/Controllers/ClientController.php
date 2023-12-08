@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Traits\HttpResponses;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
-{
+{    use HttpResponses;
     use SoftDeletes;
     public function store(Request $request)
     {
@@ -18,10 +19,10 @@ class ClientController extends Controller
 
             $request->validate([
                 'name' => 'string|required|max:255',
-                'cpf' => 'string|required|max:30',
+                'cpf' => 'string|required|unique:clients,cpf',
                 'email' => 'string|required|unique:clients,email',
-                'date_birth' =>'|required|date',
-                'adress'=> 'required|string'
+                'date_birth' =>'|required|date-format:Y-m-d',
+                'address'=> 'required|string'
             ]);
 
             Client::create($data);
