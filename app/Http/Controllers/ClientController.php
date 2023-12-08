@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Traits\HttpResponses;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ClientController extends Controller
 {
     use HttpResponses;
-    use SoftDeletes;
+
     public function store(Request $request)
     {
 
