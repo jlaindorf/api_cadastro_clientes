@@ -21,7 +21,7 @@ class ClientController extends Controller
             $request->validate([
                 'name' => 'string|required|max:255',
                 'cpf' => 'string|required|unique:clients,cpf',
-                'email' => 'string|required|unique:clients,email',
+                'email' => 'email|required|unique:clients,email',
                 'date_birth' => '|required|date-format:Y-m-d',
                 'address' => 'required|string'
             ]);
