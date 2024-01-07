@@ -31,7 +31,9 @@ class SendAwards extends Command
     public function handle()
     {
         $date =  (new DateTime('now'))->format('Y-m-d H:i');
+
         $awards = Award::query()->whereBetween('date', ["$date:00", "$date:59"])->get();
+
         foreach($awards as $award) {
             $clients = Client::query()->take($award->amount)->inRandomOrder()->get();
 

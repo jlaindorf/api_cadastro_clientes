@@ -15,7 +15,7 @@ class PopulateAwards extends Seeder
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < 5; $i++) { // Altere 10 para o número desejado de registros
+        for ($i = 0; $i < 5; $i++) {
             Award::create([
                 'description' => $faker->name(),
                 'local' => $faker->text(),
